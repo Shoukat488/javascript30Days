@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        html {
+            background-color: green;
+            background-size: cover;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        body {
+            font-size: 2rem;
+            display: flex;
+            min-height: 95vh;
+            align-items: center;
+        }
+
+        .clock {
+            border: 20px solid white;
+            width: 30rem;
+            height: 30rem;
+            border-radius: 50%;
+            margin: 50px auto;
+            position: relative;
+            padding: 2rem;
+            box-shadow:
+                /* 0 0 0px 4px black, */
+                inset 0 0 0 3px black,
+                inset 0 0 10px black,
+                /* 0 0 10px black; */
+        }
+
+        .hand {
+            width: 50%;
+            height: 6px;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            /* transition: all 0.5s; */
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform: translateY(-3px);
+        }
+
+        .second-hand {
+            background: crimson;
+        }
+        .hour-hand {
+            background: white;
+        }
+        .min-hand {
+            background:darkorange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class='clock-face'>
+            <div class="hour-hand hand"></div>
+            <div class="min-hand hand"></div>
+            <div class="second-hand hand"></div>
+        </div>
+    </div>
+</body>
+<script>
+    let secondHand = document.querySelector('.second-hand');
+    let minHand = document.querySelector('.min-hand');
+    let hrHand = document.querySelector('.hour-hand')
+    setDate = () => {
+        const time = new Date();
+        const second = time.getSeconds();
+        const mint = time.getMinutes();
+        const hr = time.getHours();
+
+        const minTransition = ((mint / 60) * 360 + 90)
+        const hrTransition = ((hr / 12) * 360 + 90)
+        const secondTranistion = ((second / 60) * 360 + 90)
+        secondHand.style.transform = `rotate(${secondTranistion}deg)`
+        minHand.style.transform = `rotate(${minTransition}deg)`
+        hrHand.style.transform = `rotate(${hrTransition}deg)`
+        console.log(second)
+    }
+
+    setInterval(setDate, 1000)
+</script>
+
+</html>
