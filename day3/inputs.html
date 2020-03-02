@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        :root {
+            --spacing: 10px;
+            --color: #ffc600;
+            --blur: 10px;
+        }
+
+        body {
+            text-align: center;
+            background: #193549;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 100;
+            font-size: 50px
+        }
+
+        .controls {
+            margin-bottom: 50px;
+        }
+
+        img {
+            filter: blur(var(--blur));
+            background: var(--color);
+            padding: var(--spacing);
+        }
+
+        .heading {
+            color: var(--color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <h1>
+            Use CSS variables with
+            <h1 class='heading'>JS</h1>
+        </h1>
+        <label for="spacing">spacing</label>
+        <input type="range" min='10' max="200" data-sizing="px" name="spacing"> </input>
+        <label for="blur">Blur</label>
+        <input type="range" min='0' max="25" data-sizing="px" name="blur"> </input>
+        <label for="color">Color</label>
+        <input type="color" name="color" value="#ffc600">
+    </div>
+    <img src="https://homepages.cae.wisc.edu/~ece533/images/girl.png">
+</body>
+<script>
+    const inputs = document.querySelectorAll('.controls input')
+    inputHandler=(e)=>{
+        const suffix = e.target.dataset.sizing || '';
+        const name = e.target.name;
+        document.documentElement.style.setProperty(`--${name}`,`${e.target.value}${suffix}`)
+    }
+    inputs.forEach(input=>input.addEventListener('change',inputHandler))
+</script>
+
+</html>
