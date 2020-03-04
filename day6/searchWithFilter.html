@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+</head>
+<style>
+    #text {
+        /* visibility: hidden; */
+    }
+
+    body {
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: darkslategray;
+    }
+
+    h1 {
+        font-weight: 700;
+    }
+
+    .searchBar {
+        height: 30px;
+        width: 250px;
+        border: 1px solid slategrey;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 15px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .list {
+        margin-top: 10px;
+        padding: 0;
+        list-style: none;
+        align-items: center;
+        justify-content: center;
+        width: 260px;
+        border: 1px solid slategray;
+        border-radius: 5px;
+        padding: 4px;
+        padding-left: 10px;
+        background-color: rgba(220, 20, 60, 0.753);
+        max-height: 300px;
+        overflow-y: scroll;
+        overflow-x:hidden;
+    }
+
+    .item {
+        background-color: rgb(51, 44, 44);
+        color: aliceblue;
+        width: 250px;
+        height: 30px;
+        text-align: center;
+        padding-top: 10px;
+        border-radius: 5px;
+        margin: 2px;
+        justify-content: space-evenly;
+    }
+
+    .highlight {
+        color: yellow;
+    }
+</style>
+
+<body>
+    <h1>Chooose city or state</h1>
+    <input class="searchBar" placeholder="search city or counrty">
+    <ul class="list">
+        <li class="item">
+            <span>City</span> , <span>State</span>
+        </li>
+    </ul>
+</body>
+<script>
+    // let text = "";
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    const cities = []
+
+    fetch(endpoint)
+        .then(response => response.json())
+        .then(data => cities.push(...data))
+
+    numberWithCommas=(x)=> {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    matchText = (text) => {
+
+        const value = text.target.value;
+        const reg = new RegExp(value, 'gi');
+
+        const filtered = cities.filter(city => {
+            return city.city.match(reg) || city.state.match(reg);
+        })
+        displayResults(filtered, value)
+        console.log(filtered)
+    }
+    displayResults = (data, value) => {
+        const rgx = new RegExp(value, 'gi')
+        const html = data.map(item => {
+            const city = item.city.replace(rgx, `<span class="highlight">${value} </span>`)
+            const state = item.state.replace(rgx, `<span class="highlight">${value} </span>`)
+            return (
+                `<li class='item'>
+                    <span> ${city} </span> ,
+                    <span> ${state}</span>
+                    <span>${numberWithCommas(item.population)} </span> 
+                    </li>
+                    `
+            )
+        })
+
+        list.innerHTML = html
+    }
+    const textFeild = document.querySelector('.searchBar')
+    const list = document.querySelector('.list')
+    textFeild.addEventListener('change', matchText)
+</script>
+
+</html>
