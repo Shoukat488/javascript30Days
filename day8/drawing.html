@@ -39,7 +39,7 @@
     ctx.lineCap = 'round';
     ctx.lineWidth = 1;
     let isDrawing = false;
-    let direction = true;
+    let isIncrease = true;
     let lastX = 0;
     let lastY = 0;
     clear=(e)=>{
@@ -54,8 +54,8 @@
         [lastX, lastY] = [e.offsetX, e.offsetY]
 
         if (ctx.lineWidth <= 1 || ctx.lineWidth >= 100)
-            direction = !direction;
-        if (direction) ctx.lineWidth++;
+        isIncrease = !isIncrease;
+        if (isIncrease) ctx.lineWidth++;
         else ctx.lineWidth--;
         ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
         hue++;
