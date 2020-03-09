@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+
+    // Interpolated
+
+    // Styled
+    console.log(" %c Hello are stylish people ",'font-size:32px; background:"red";')
+    // warning!
+    console.warn("it is unsecure");
+    // Error :|
+    console.error("sytax error")
+    // Info
+    console.info("K-2 are in Pakistan")
+    // Testing
+    console.assert((true === true))
+    // clearing
+    console.clear()
+
+    // Viewing DOM Elements
+    const p = document.querySelector('p')
+    console.log(p)
+    // Grouping together
+
+    dogs.forEach(item=>{
+      console.groupCollapsed(`${item.name}`)
+      console.log(`This ${item.name} is ${item.age} old`)
+      console.log(`This ${item.name} is ${item.age}*12 old`)
+      console.groupEnd(`${item.name}`)
+    })
+
+    // counting
+
+    console.count('shoukat')
+    console.count("ali")
+    console.count('shoukat')
+    console.count("ali")
+    console.count('shoukat')
+    console.count("ali")
+    console.count('shoukat')
+    console.count("ali")
+    console.count('shoukat')
+    console.count("ali")
+    console.count('shoukat')
+    console.count("ali")
+    console.count('shoukat')
+    console.count("ali")
+    console.count('shoukat')
+    console.count("ali")
+
+    // timing
+    console.time('fetch data')
+
+    fetch('https://api.github.com/users/wesbos')
+    .then(response=>response.json())
+    .then(data=>{
+      console.timeEnd('fetch data')
+      console.log(data)
+    })
+  </script>
+</body>
+</html>
